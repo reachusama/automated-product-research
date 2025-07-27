@@ -1,12 +1,10 @@
 import re
-from bs4 import BeautifulSoup
+
 import spacy
+from bs4 import BeautifulSoup
 from spacy.matcher import PhraseMatcher
-from config.settings import (
-    HEADERS,
-    TARGET_AUDIENCE_TERMS,
-    FEATURE_TERMS
-)
+
+from config.settings import FEATURE_TERMS, HEADERS, TARGET_AUDIENCE_TERMS
 
 nlp = spacy.load("en_core_web_sm")
 matcher = PhraseMatcher(nlp.vocab, attr="LOWER")
@@ -24,10 +22,13 @@ def get_main_text(soup: BeautifulSoup) -> str:
 def extract_matches(text, label):
     doc = nlp(text)
     matches = matcher(doc)
-    return sorted(set(
-        doc[start:end].text.lower() for match_id, start, end in matches
-        if nlp.vocab.strings[match_id] == label
-    ))
+    return sorted(
+        set(
+            doc[start:end].text.lower()
+            for match_id, start, end in matches
+            if nlp.vocab.strings[match_id] == label
+        )
+    )
 
 
 def extract_contact_info(text):
@@ -37,13 +38,15 @@ def extract_contact_info(text):
     return (
         email.group() if email else "",
         phone.group() if phone else "",
-        address.group() if address else ""
+        address.group() if address else "",
     )
 
 
 def extract_seo_meta(soup):
     def get(name):
-        tag = soup.find("meta", attrs={"name": name}) or soup.find("meta", attrs={"property": name})
+        tag = soup.find("meta", attrs={"name": name}) or soup.find(
+            "meta", attrs={"property": name}
+        )
         return tag["content"] if tag and "content" in tag.attrs else ""
 
     return {
@@ -54,5 +57,9 @@ def extract_seo_meta(soup):
         "seo_og_locale": get("og:locale"),
         "seo_twitter_title": get("twitter:title"),
         "seo_twitter_description": get("twitter:description"),
-        "seo_canonical_link": soup.find("link", rel="canonical")["href"] if soup.find("link", rel="canonical") else ""
+        "seo_canonical_link": (
+            soup.find("link", rel="canonical")["href"]
+            if soup.find("link", rel="canonical")
+            else ""
+        ),
     }

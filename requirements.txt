@@ -1,0 +1,7 @@
+python-dotenv
+google-api-python-client
+beautifulsoup4
+pandas
+spacy
+isort
+black

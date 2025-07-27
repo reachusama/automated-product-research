@@ -1,10 +1,15 @@
+from datetime import datetime
+from urllib.parse import urlparse
+
 import requests
 from bs4 import BeautifulSoup
-from urllib.parse import urlparse
-from datetime import datetime
+
 from config.settings import HEADERS
 from core.extractor import (
-    get_main_text, extract_matches, extract_contact_info, extract_seo_meta
+    extract_contact_info,
+    extract_matches,
+    extract_seo_meta,
+    get_main_text,
 )
 
 
@@ -33,14 +38,18 @@ def process_url(keyword_category, keyword, url, country_code):
         "keyword": keyword,
         "product_name": soup.title.string.strip() if soup.title else "",
         "website_url": url,
-        "country": urlparse(url).netloc.split('.')[-1],
+        "country": urlparse(url).netloc.split(".")[-1],
         "search_country": country_code.upper(),
         "address": address,
         "email": email,
         "phone_number": phone,
         "target_audience": ", ".join(audience),
-        "delivery_platform": ", ".join([f for f in features if f in ["web app", "LMS", "plugin", "mobile app"]]),
-        "integrations": ", ".join([f for f in features if f not in ["web app", "LMS", "plugin", "mobile app"]]),
+        "delivery_platform": ", ".join(
+            [f for f in features if f in ["web app", "LMS", "plugin", "mobile app"]]
+        ),
+        "integrations": ", ".join(
+            [f for f in features if f not in ["web app", "LMS", "plugin", "mobile app"]]
+        ),
         "raw_homepage_text": raw_text,
         "llm_summary": "",
         "business_description_point_1": "",
@@ -54,5 +63,5 @@ def process_url(keyword_category, keyword, url, country_code):
         "source_url": url,
         "last_updated": datetime.utcnow().isoformat(),
         "scrape_notes": "",
-        **seo
+        **seo,
     }

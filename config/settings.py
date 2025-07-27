@@ -1,9 +1,22 @@
-import os
 import json
+import os
+
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+# Get values from environment
+API_KEY = os.getenv("API_KEY")
+SEARCH_ENGINE_ID = os.getenv("SEARCH_ENGINE_ID")
+MAX_RESULTS_PER_QUERY = 10
 
 # Base paths
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 DATA_DIR = os.path.join(BASE_DIR, "data")
+
+# CSV file paths
+RESULTS_CSV = os.path.join(DATA_DIR, "ai_edtech_results.csv")
+PROGRESS_CSV = os.path.join(DATA_DIR, "scrape_progress.csv")
 
 
 # Load helper
@@ -18,12 +31,8 @@ KEYWORDS = load_json("keywords.json")
 TARGET_AUDIENCE_TERMS = load_json("target_audience_terms.json")
 FEATURE_TERMS = load_json("feature_terms.json")
 
-API_KEY = "YOUR_GOOGLE_API_KEY"
-SEARCH_ENGINE_ID = "YOUR_CUSTOM_SEARCH_ID"
-MAX_RESULTS_PER_QUERY = 100
-
-RESULTS_CSV = "data/results.csv"
-PROGRESS_CSV = "data/scrape_progress.csv"
+# RESULTS_CSV = "data/results.csv"
+# PROGRESS_CSV = "data/scrape_progress.csv"
 
 COUNTRIES = ["uk", "us", "ca", "au", "in"]
 
@@ -33,5 +42,5 @@ HEADERS = {
         "(KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
     ),
     "Accept-Language": "en-US,en;q=0.9",
-    "DNT": "1"
+    "DNT": "1",
 }

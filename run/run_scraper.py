@@ -1,8 +1,10 @@
-from config.settings import COUNTRIES, KEYWORDS
-from core.search_google import google_search
-from core.scraper import process_url
-from core.csv_writer import write_csv_row, read_progress, mark_progress
 import time
+
+from config.settings import COUNTRIES, KEYWORDS
+from core.csv_writer import mark_progress, read_progress, write_csv_row
+from core.scraper import process_url
+from core.search_google import google_search
+
 
 def run_pipeline():
     seen = read_progress()
@@ -22,6 +24,8 @@ def run_pipeline():
                         write_csv_row(data)
                     time.sleep(1.5)
                 mark_progress(keyword, country.upper())
+                break
+
 
 if __name__ == "__main__":
     run_pipeline()
