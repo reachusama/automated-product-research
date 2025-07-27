@@ -61,6 +61,5 @@ automated-product-research/
 Custom Search API
 ```
 
-## Todo
 
 
