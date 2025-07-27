@@ -5,6 +5,15 @@ Discover and analyze online products or services using keyword-driven search, au
 
 P.S: This tools is not fully born yet.
 
+## Todo
+
+* [ ] Make search criteria more robust
+* [ ] Make product signal verifier more robust using spaCy / AI
+* [ ] Scrapers are receiving timeouts or getting blocked (consider using Selenium)
+* [ ] Consider using only SEO data, rather raw_text data from home page
+* [ ] Add LLMs to process data and create labels
+* [ ] 
+
 ## Python Installation
 
 ```
@@ -54,6 +63,4 @@ Custom Search API
 
 ## Todo
 
-[] Make product signal verifier more robust using spacy
-[] Scrapers recieve timeout or blocked (Maybe selenium)
-[] Make search criterias more robust
+
