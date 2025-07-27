@@ -10,9 +10,21 @@ from core.extractor import (
     extract_matches,
     extract_seo_meta,
     get_main_text,
+    is_irrelevant_url,
+    is_blog_or_article,
+    is_likely_product_page_spacy,
+    has_product_signals
 )
 
+from spacy.lang.en import English
 
+nlp = English()
+tokenizer = nlp.tokenizer
+
+
+# ----------------------------------------
+# 🌍 Fetch & Process
+# ----------------------------------------
 def get_soup(url):
     try:
         r = requests.get(url, headers=HEADERS, timeout=10)
@@ -23,11 +35,23 @@ def get_soup(url):
 
 
 def process_url(keyword_category, keyword, url, country_code):
+    if is_irrelevant_url(url):
+        return None
+
     soup = get_soup(url)
     if not soup:
         return None
 
     raw_text = get_main_text(soup)
+
+    # Flag logic
+    blog_flag = is_blog_or_article(soup)
+    signals_flag = has_product_signals(raw_text)
+    spacy_flag = is_likely_product_page_spacy(raw_text)
+
+    is_potential_product = (not blog_flag) and (signals_flag or spacy_flag)
+
+    # Extract structured data
     audience = extract_matches(raw_text, "TARGET_AUDIENCE")
     features = extract_matches(raw_text, "FEATURES")
     email, phone, address = extract_contact_info(raw_text)
@@ -63,5 +87,9 @@ def process_url(keyword_category, keyword, url, country_code):
         "source_url": url,
         "last_updated": datetime.utcnow().isoformat(),
         "scrape_notes": "",
+        "is_blog_or_article": blog_flag,
+        "has_product_signals": signals_flag,
+        "spacy_product_score_flag": spacy_flag,
+        "is_potential_product": is_potential_product,
         **seo,
     }

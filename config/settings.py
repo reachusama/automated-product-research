@@ -30,6 +30,15 @@ def load_json(file_name):
 KEYWORDS = load_json("keywords.json")
 TARGET_AUDIENCE_TERMS = load_json("target_audience_terms.json")
 FEATURE_TERMS = load_json("feature_terms.json")
+IRRELEVANT_DOMAINS = [
+    "blog.google", "news.google", "medium.com", "youtube.com", "reddit.com",
+    "linkedin.com", "facebook.com", "twitter.com", "techcrunch.com",
+    "edweek.org", "edutopia.org", "forbes.com", "bbc.com"
+]
+
+IRRELEVANT_PATH_FRAGMENTS = [
+    "/news", "/article", "/press", "/story", "/stories"
+]
 
 # RESULTS_CSV = "data/results.csv"
 # PROGRESS_CSV = "data/scrape_progress.csv"

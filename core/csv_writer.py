@@ -11,12 +11,14 @@ def ensure_directory(file_path):
     os.makedirs(os.path.dirname(file_path), exist_ok=True)
 
 
-def write_csv_row(row, file=RESULTS_CSV, header=False):
+def write_csv_row(row, file=RESULTS_CSV):
     ensure_directory(file)
     file_exists = os.path.isfile(file)
+    needs_header = not file_exists or os.path.getsize(file) == 0
+
     with open(file, "a", encoding="utf-8", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=row.keys())
-        if header and not file_exists:
+        if needs_header:
             writer.writeheader()
         writer.writerow(row)
 
@@ -32,9 +34,10 @@ def read_progress():
 def mark_progress(keyword, country):
     ensure_directory(PROGRESS_CSV)
     new_row = {"keyword": keyword, "search_country": country}
-    file_exists = os.path.exists(PROGRESS_CSV)
+    needs_header = not os.path.isfile(PROGRESS_CSV) or os.path.getsize(PROGRESS_CSV) == 0
+
     with open(PROGRESS_CSV, "a", encoding="utf-8", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=["keyword", "search_country"])
-        if not file_exists or os.path.getsize(PROGRESS_CSV) == 0:
+        writer = csv.DictWriter(f, fieldnames=new_row.keys())
+        if needs_header:
             writer.writeheader()
         writer.writerow(new_row)

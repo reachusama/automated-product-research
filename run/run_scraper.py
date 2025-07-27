@@ -18,6 +18,7 @@ def run_pipeline():
 
                 print(f"Searching {keyword} in {country.upper()}")
                 urls = google_search(keyword, country)
+
                 for url in urls:
                     data = process_url(category, keyword, url, country)
                     if data:

@@ -51,3 +51,9 @@ ai_edtech_scraper/
 ```
 Custom Search API
 ```
+
+## Todo
+
+[] Make product signal verifier more robust using spacy
+[] Scrapers recieve timeout or blocked (Maybe selenium)
+[] Make search criterias more robust
