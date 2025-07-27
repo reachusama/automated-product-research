@@ -15,13 +15,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 DATA_DIR = os.path.join(BASE_DIR, "data")
 
 # CSV file paths
-RESULTS_CSV = os.path.join(DATA_DIR, "ai_edtech_results.csv")
-PROGRESS_CSV = os.path.join(DATA_DIR, "scrape_progress.csv")
+RESULTS_CSV = os.path.join(DATA_DIR, "out/ai_edtech_results.csv")
+PROGRESS_CSV = os.path.join(DATA_DIR, "out/scrape_progress.csv")
 
 
 # Load helper
-def load_json(file_name):
-    path = os.path.join(DATA_DIR, file_name)
+def load_json(file_name, type="in"):
+    path = os.path.join(DATA_DIR, f"{type}/{file_name}")
     with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
 
