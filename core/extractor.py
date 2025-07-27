@@ -1,11 +1,17 @@
 import re
+from urllib.parse import urlparse
 
 import spacy
 from bs4 import BeautifulSoup
 from spacy.matcher import PhraseMatcher
 
-from config.settings import FEATURE_TERMS, HEADERS, TARGET_AUDIENCE_TERMS, IRRELEVANT_DOMAINS, IRRELEVANT_PATH_FRAGMENTS
-from urllib.parse import urlparse
+from config.settings import (
+    FEATURE_TERMS,
+    IRRELEVANT_DOMAINS,
+    IRRELEVANT_PATH_FRAGMENTS,
+    TARGET_AUDIENCE_TERMS,
+    PRODUCT_SIGNALS
+)
 
 nlp = spacy.load("en_core_web_sm")
 matcher = PhraseMatcher(nlp.vocab, attr="LOWER")
@@ -70,10 +76,13 @@ def extract_seo_meta(soup):
 # 🚫 Filter Out Known Junk Sites
 # ----------------------------------------
 
+
 def is_irrelevant_url(url):
     domain = urlparse(url).netloc.lower()
     path = urlparse(url).path.lower()
-    return any(d in domain for d in IRRELEVANT_DOMAINS) or any(frag in path for frag in IRRELEVANT_PATH_FRAGMENTS)
+    return any(d in domain for d in IRRELEVANT_DOMAINS) or any(
+        frag in path for frag in IRRELEVANT_PATH_FRAGMENTS
+    )
 
 
 # ----------------------------------------
@@ -82,16 +91,19 @@ def is_irrelevant_url(url):
 def is_blog_or_article(soup):
     title = soup.title.string.lower() if soup.title else ""
     description = soup.find("meta", attrs={"name": "description"})
-    meta_desc = description["content"].lower() if description and "content" in description.attrs else ""
-    return any(word in title or word in meta_desc for word in ["article", "news", "post", "press"])
+    meta_desc = (
+        description["content"].lower()
+        if description and "content" in description.attrs
+        else ""
+    )
+    return any(
+        word in title or word in meta_desc
+        for word in ["article", "news", "post", "press"]
+    )
 
 
 def has_product_signals(text):
-    signals = [
-        "get started", "sign up", "schedule a demo", "platform", "our product",
-        "used by", "AI-powered", "pricing", "free trial", "product"
-    ]
-    return any(sig in text.lower() for sig in signals)
+    return any(sig in text.lower() for sig in PRODUCT_SIGNALS)
 
 
 # Optional: advanced check using spaCy
@@ -99,5 +111,8 @@ def is_likely_product_page_spacy(text):
     doc = nlp(text.lower())
     tokens = [token.text for token in doc]
     score = sum(
-        1 for keyword in ["platform", "tool", "app", "product", "AI"] if keyword in tokens)
+        1
+        for keyword in ["platform", "tool", "app", "product", "AI"]
+        if keyword in tokens
+    )
     return score >= 3

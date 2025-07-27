@@ -34,7 +34,9 @@ def read_progress():
 def mark_progress(keyword, country):
     ensure_directory(PROGRESS_CSV)
     new_row = {"keyword": keyword, "search_country": country}
-    needs_header = not os.path.isfile(PROGRESS_CSV) or os.path.getsize(PROGRESS_CSV) == 0
+    needs_header = (
+        not os.path.isfile(PROGRESS_CSV) or os.path.getsize(PROGRESS_CSV) == 0
+    )
 
     with open(PROGRESS_CSV, "a", encoding="utf-8", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=new_row.keys())

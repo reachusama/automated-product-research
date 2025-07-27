@@ -3,6 +3,7 @@ from urllib.parse import urlparse
 
 import requests
 from bs4 import BeautifulSoup
+from spacy.lang.en import English
 
 from config.settings import HEADERS
 from core.extractor import (
@@ -10,13 +11,11 @@ from core.extractor import (
     extract_matches,
     extract_seo_meta,
     get_main_text,
-    is_irrelevant_url,
+    has_product_signals,
     is_blog_or_article,
+    is_irrelevant_url,
     is_likely_product_page_spacy,
-    has_product_signals
 )
-
-from spacy.lang.en import English
 
 nlp = English()
 tokenizer = nlp.tokenizer
