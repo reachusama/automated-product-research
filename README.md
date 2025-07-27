@@ -18,7 +18,7 @@ pip install isort black
 ## Project Structure
 
 ```
-ai_edtech_scraper/
+automated-product-research/
 │
 ├── config/
 │   └── settings.py             # API keys, search config, paths
