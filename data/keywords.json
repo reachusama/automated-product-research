@@ -1,0 +1,80 @@
+{
+  "Curriculum & Teaching Support": [
+    "AI lesson plan generator",
+    "AI curriculum design tools",
+    "AI-powered question generator",
+    "Adaptive lesson content tools",
+    "AI for differentiated instruction",
+    "Generative AI for lesson planning",
+    "AI for scaffolding learning",
+    "AI formative assessment tools",
+    "AI-generated teaching resources",
+    "AI co-teaching assistant",
+    "AI lesson content reviewer"
+  ],
+  "Feedback, Grading & Assessment": [
+    "AI marking tools",
+    "Automated essay grading software",
+    "Personalized feedback generators",
+    "AI formative feedback systems",
+    "AI student progress tracker",
+    "AI grading assistant",
+    "Feedback and revision AI tools",
+    "AI performance analysis",
+    "AI rubric-based evaluation",
+    "AI test scoring automation"
+  ],
+  "Student Learning Enhancement": [
+    "AI learning assistant",
+    "AI homework helper",
+    "Language learning chatbot",
+    "AI practice exam generator",
+    "Personalized learning AI",
+    "AI tutor for K-12",
+    "AI for student misconceptions detection",
+    "AI flashcard generators",
+    "Adaptive learning tools",
+    "AI-powered spaced repetition tools"
+  ],
+  "Admin, Reports & Communication": [
+    "AI report card generator",
+    "AI end-of-year report writer",
+    "AI-powered school policy writer",
+    "AI parent-teacher communication tools",
+    "AI-generated newsletters",
+    "AI classroom analytics",
+    "GenAI tools for administrative tasks",
+    "AI policy document assistant",
+    "AI term summary generator"
+  ],
+  "Inclusion & Support Tools": [
+    "AI for SEND education",
+    "Adaptive learning for special needs",
+    "AI assistive tech for diverse learners",
+    "Personalized accessibility content tools",
+    "Speech-to-text AI for classroom use",
+    "AI learning tools for neurodiverse students"
+  ],
+  "Infrastructure & Ecosystem": [
+    "GenAI PoC tools for education",
+    "LLMs in EdTech",
+    "GenAI integration with MIS systems",
+    "School AI adoption platforms",
+    "Custom AI for school workflows",
+    "AI for teacher professional development",
+    "AI usage analytics in education",
+    "AI policy compliance checker"
+  ],
+  "Higher Education": [
+    "AI-powered academic advising tools",
+    "AI for plagiarism detection",
+    "AI research assistant",
+    "Automated feedback on essays",
+    "AI peer review assistant",
+    "AI for course curriculum design",
+    "AI-driven learning analytics",
+    "LLM tools for academic writing",
+    "AI for lecture transcription and summarization",
+    "AI in higher education administration"
+  ]
+}
