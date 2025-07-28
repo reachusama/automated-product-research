@@ -42,6 +42,7 @@ def process_url(keyword_category, keyword, url, country_code):
     if not soup:
         return None
 
+    website_title = soup.title.string.strip() if soup.title else ""
     raw_text = clean_raw_text(get_main_text(soup))
     seo = extract_seo_meta(soup)
 
@@ -50,7 +51,7 @@ def process_url(keyword_category, keyword, url, country_code):
     combined_text = f"{seo_text}\n{raw_text[:2000]}"
 
     website_summary = summarize_text(combined_text)
-    website_classification = classify_text(website_summary)
+    website_classification = classify_text(f"{website_title}\n{website_summary}")
     # signals_flag = has_product_signals(combined_text)
 
     # spacy_flag = is_likely_product_page_spacy(raw_text)
@@ -65,13 +66,12 @@ def process_url(keyword_category, keyword, url, country_code):
     return {
         "keyword_category": keyword_category,
         "keyword": keyword,
-        "product_name": soup.title.string.strip() if soup.title else "",
+        "website_title": website_title,
         "website_url": url,
-        "country": urlparse(url).netloc.split(".")[-1],
         "search_country": country_code.upper(),
-        "address": address,
-        "email": email,
-        "phone_number": phone,
+        # "address": address,
+        # "email": email,
+        # "phone_number": phone,
         # "target_audience": ", ".join(audience),
         # "delivery_platform": ", ".join(
         #     [f for f in features if f in ["web app", "LMS", "plugin", "mobile app"]]
@@ -79,8 +79,8 @@ def process_url(keyword_category, keyword, url, country_code):
         # "integrations": ", ".join(
         #     [f for f in features if f not in ["web app", "LMS", "plugin", "mobile app"]]
         # ),
-        "raw_homepage_text": raw_text,
-        "llm_summary": "",
+        # "raw_homepage_text": raw_text,
+        # "llm_summary": "",
         # "business_description_point_1": "",
         # "business_description_point_2": "",
         # "business_description_point_3": "",
