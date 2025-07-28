@@ -34,6 +34,7 @@ IRRELEVANT_DOMAINS = load_json("irrelevant_domains.json")
 IRRELEVANT_PATH_FRAGMENTS = load_json("irrelevant_path_fragments.json")
 PRODUCT_SIGNALS = load_json("product_signals.json")
 BLOCKED_EXTENSIONS = load_json("blocked_extensions.json")
+WEBSITE_CATEGORY_FILTERS = load_json("website_categories.json")
 
 COUNTRIES = ["uk", "us", "ca", "au", "in"]
 
@@ -46,4 +47,4 @@ HEADERS = {
     "DNT": "1",
 }
 
-WEBSITE_CATEGORY_FILTERS = ["Product-Based Business", "Not Product-Based"]
+
