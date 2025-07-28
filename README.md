@@ -8,8 +8,10 @@ P.S: This tools is not fully born yet.
 ## Todo
 
 * [x] Made google search engine URLs filtering more flexible & extensive
+* [x] Added website classification using zero-shot model
+* [ ] Improve Zero-shot classification labels
 * [ ] Bug in CSV writing that starts writing text
-* [ ] Make product signal verifier more robust using spaCy / AI
+* [ ] Improve website classification more robust using spaCy / AI
 * [ ] Scrapers are receiving timeouts or getting blocked (consider using Selenium)
 * [ ] Consider using only SEO data, rather raw_text data from home page
 * [ ] Add LLMs to process data and create labels

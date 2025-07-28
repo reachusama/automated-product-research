@@ -5,7 +5,7 @@ from googleapiclient.discovery import build
 from config.settings import API_KEY, MAX_RESULTS_PER_QUERY, SEARCH_ENGINE_ID
 
 
-def google_search(query, country_code="us", max_pages=1):
+def google_search(query, country_code="us", max_pages=3):
     country_params = {
         "uk": {"gl": "uk", "cr": "countryUK"},
         "us": {"gl": "us", "cr": "countryUS"},
