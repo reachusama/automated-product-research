@@ -7,3 +7,6 @@
 __pycache__/
 __pycache__
 /__pycache__/
+
+data/out/results.csv
+data/out/scrape_progress.csv
