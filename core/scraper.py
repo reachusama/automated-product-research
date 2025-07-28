@@ -15,6 +15,7 @@ from core.extractor import (
     is_irrelevant_url,
     is_likely_product_page_spacy,
 )
+from core.ai_models import classify_text
 
 nlp = English()
 tokenizer = nlp.tokenizer
@@ -44,6 +45,7 @@ def process_url(keyword_category, keyword, url, country_code):
 
     # Flag logic
     signals_flag = has_product_signals(raw_text)
+    website_classification = classify_text(raw_text)
     # spacy_flag = is_likely_product_page_spacy(raw_text)
 
     # is_potential_product = (signals_flag or spacy_flag)
@@ -87,5 +89,6 @@ def process_url(keyword_category, keyword, url, country_code):
         # "has_product_signals": signals_flag,
         # "spacy_product_score_flag": spacy_flag,
         "is_potential_product": signals_flag,
+        "website_classification": website_classification,
         **seo,
     }

@@ -45,3 +45,5 @@ HEADERS = {
     "Accept-Language": "en-US,en;q=0.9",
     "DNT": "1",
 }
+
+WEBSITE_CATEGORY_FILTERS = ["Product-Based Business", "Not Product-Based"]

@@ -6,3 +6,5 @@ spacy
 isort
 black
 tldextract
+transformers
+torch

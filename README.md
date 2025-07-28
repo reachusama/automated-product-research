@@ -7,7 +7,8 @@ P.S: This tools is not fully born yet.
 
 ## Todo
 
-* [ ] Make search criteria more robust
+* [x] Made google search engine URLs filtering more flexible & extensive
+* [ ] Bug in CSV writing that starts writing text
 * [ ] Make product signal verifier more robust using spaCy / AI
 * [ ] Scrapers are receiving timeouts or getting blocked (consider using Selenium)
 * [ ] Consider using only SEO data, rather raw_text data from home page
@@ -22,6 +23,8 @@ pip install google-api-python-client beautifulsoup4 pandas requests spacy
 python -m spacy download en_core_web_sm
 pip install isort black
 pip install tldextract
+pip install transformers torch
+
 ```
 
 ## Project Structure
