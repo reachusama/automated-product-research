@@ -5,3 +5,4 @@ pandas
 spacy
 isort
 black
+tldextract

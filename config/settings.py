@@ -15,7 +15,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 DATA_DIR = os.path.join(BASE_DIR, "data")
 
 # CSV file paths
-RESULTS_CSV = os.path.join(DATA_DIR, "out/ai_edtech_results.csv")
+RESULTS_CSV = os.path.join(DATA_DIR, "out/results.csv")
 PROGRESS_CSV = os.path.join(DATA_DIR, "out/scrape_progress.csv")
 
 
@@ -32,7 +32,8 @@ TARGET_AUDIENCE_TERMS = load_json("target_audience_terms.json")
 FEATURE_TERMS = load_json("feature_terms.json")
 IRRELEVANT_DOMAINS = load_json("irrelevant_domains.json")
 IRRELEVANT_PATH_FRAGMENTS = load_json("irrelevant_path_fragments.json")
-PRODUCT_SIGNALS = load_json("product_signals.json.json")
+PRODUCT_SIGNALS = load_json("product_signals.json")
+BLOCKED_EXTENSIONS = load_json("blocked_extensions.json")
 
 COUNTRIES = ["uk", "us", "ca", "au", "in"]
 

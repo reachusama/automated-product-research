@@ -9,8 +9,8 @@ from config.settings import (
     FEATURE_TERMS,
     IRRELEVANT_DOMAINS,
     IRRELEVANT_PATH_FRAGMENTS,
+    PRODUCT_SIGNALS,
     TARGET_AUDIENCE_TERMS,
-    PRODUCT_SIGNALS
 )
 
 nlp = spacy.load("en_core_web_sm")
@@ -88,18 +88,6 @@ def is_irrelevant_url(url):
 # ----------------------------------------
 # 🧠 Heuristics: Is Product Page?
 # ----------------------------------------
-def is_blog_or_article(soup):
-    title = soup.title.string.lower() if soup.title else ""
-    description = soup.find("meta", attrs={"name": "description"})
-    meta_desc = (
-        description["content"].lower()
-        if description and "content" in description.attrs
-        else ""
-    )
-    return any(
-        word in title or word in meta_desc
-        for word in ["article", "news", "post", "press"]
-    )
 
 
 def has_product_signals(text):

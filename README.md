@@ -21,7 +21,7 @@ P.S: This tools is not fully born yet.
 pip install google-api-python-client beautifulsoup4 pandas requests spacy
 python -m spacy download en_core_web_sm
 pip install isort black
-
+pip install tldextract
 ```
 
 ## Project Structure

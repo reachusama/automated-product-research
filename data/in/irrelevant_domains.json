@@ -1,4 +1,5 @@
 [
+    "blog",
     "blog.google",
     "news.google",
     "medium.com",
@@ -11,5 +12,7 @@
     "edweek.org",
     "edutopia.org",
     "forbes.com",
-    "bbc.com"
+    "bbc.com",
+    "uk.linkedin.com",
+    "microsoft.com"
 ]
