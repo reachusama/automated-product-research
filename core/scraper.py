@@ -15,7 +15,7 @@ from core.extractor import (
     is_irrelevant_url,
     is_likely_product_page_spacy,
 )
-from core.ai_models import classify_text
+from core.ai_models import classify_text, summarize_text
 
 nlp = English()
 tokenizer = nlp.tokenizer
@@ -42,10 +42,16 @@ def process_url(keyword_category, keyword, url, country_code):
         return None
 
     raw_text = get_main_text(soup)
+    seo = extract_seo_meta(soup)
 
     # Flag logic
-    signals_flag = has_product_signals(raw_text)
-    website_classification = classify_text(raw_text)
+    seo_text = " ".join(str(value) for value in seo.values() if value)
+    combined_text = f"{seo_text}\n{raw_text}"
+
+    website_summary = summarize_text(combined_text)
+    website_classification = classify_text(website_summary)
+    signals_flag = has_product_signals(website_summary)
+
     # spacy_flag = is_likely_product_page_spacy(raw_text)
 
     # is_potential_product = (signals_flag or spacy_flag)
@@ -54,7 +60,6 @@ def process_url(keyword_category, keyword, url, country_code):
     # audience = extract_matches(raw_text, "TARGET_AUDIENCE")
     # features = extract_matches(raw_text, "FEATURES")
     email, phone, address = extract_contact_info(raw_text)
-    seo = extract_seo_meta(soup)
 
     return {
         "keyword_category": keyword_category,
@@ -89,6 +94,7 @@ def process_url(keyword_category, keyword, url, country_code):
         # "has_product_signals": signals_flag,
         # "spacy_product_score_flag": spacy_flag,
         "is_potential_product": signals_flag,
+        "website_summary": website_summary,
         "website_classification": website_classification,
         **seo,
     }
