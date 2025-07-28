@@ -1,4 +1,6 @@
 import tldextract
+import re
+import unicodedata
 
 
 def deduplicate_base_domains(urls: list[str]) -> list[str]:
@@ -79,3 +81,40 @@ def filter_irrelevant_domains(urls: list[str], blocked_domains: list[str]) -> li
             continue
 
     return filtered
+
+
+def clean_raw_text(text: str) -> str:
+    """
+    Cleans raw website text by removing unnecessary whitespace,
+    newlines, non-printable characters, and poorly formatted blocks.
+
+    Args:
+        text (str): The raw input text.
+
+    Returns:
+        str: Cleaned and normalized text.
+    """
+    if not text:
+        return ""
+
+    # Normalize unicode characters
+    text = unicodedata.normalize("NFKC", text)
+
+    # Remove invisible/control characters
+    text = re.sub(r'[\x00-\x1F\x7F-\x9F]', '', text)
+
+    # Replace multiple spaces or tabs with a single space
+    text = re.sub(r'[ \t]+', ' ', text)
+
+    # Replace multiple newlines or newlines with spaces
+    text = re.sub(r'\n+', '\n', text)  # Collapse multiple newlines
+    text = re.sub(r' *\n *', '\n', text)  # Trim around newlines
+    text = re.sub(r'\n', ' ', text)  # Replace newlines with space
+
+    # Collapse multiple spaces again, post newline removal
+    text = re.sub(r' +', ' ', text)
+
+    # Strip leading/trailing whitespace
+    text = text.strip()
+
+    return text

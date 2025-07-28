@@ -36,7 +36,7 @@ def classify_text(
     return None
 
 
-def summarize_text(text: str, max_length: int = 200, min_length: int = 60) -> Optional[str]:
+def summarize_text(text: str, max_length: int = 50, min_length: int = 15) -> Optional[str]:
     """
     Summarizes a long piece of text using facebook/bart-large-cnn.
 

@@ -16,6 +16,7 @@ from core.extractor import (
     is_likely_product_page_spacy,
 )
 from core.ai_models import classify_text, summarize_text
+from core.helpers import clean_raw_text
 
 nlp = English()
 tokenizer = nlp.tokenizer
@@ -41,16 +42,16 @@ def process_url(keyword_category, keyword, url, country_code):
     if not soup:
         return None
 
-    raw_text = get_main_text(soup)
+    raw_text = clean_raw_text(get_main_text(soup))
     seo = extract_seo_meta(soup)
 
     # Flag logic
     seo_text = " ".join(str(value) for value in seo.values() if value)
-    combined_text = f"{seo_text}\n{raw_text}"
+    combined_text = f"{seo_text}\n{raw_text[:2000]}"
 
     website_summary = summarize_text(combined_text)
     website_classification = classify_text(website_summary)
-    signals_flag = has_product_signals(website_summary)
+    # signals_flag = has_product_signals(combined_text)
 
     # spacy_flag = is_likely_product_page_spacy(raw_text)
 
@@ -88,12 +89,11 @@ def process_url(keyword_category, keyword, url, country_code):
         # "product_stage": "",
         # "funding_info": "",
         # "partner_names": "",
-        "source_url": url,
         "last_updated": datetime.utcnow().isoformat(),
         # "scrape_notes": "",
         # "has_product_signals": signals_flag,
         # "spacy_product_score_flag": spacy_flag,
-        "is_potential_product": signals_flag,
+        # "is_potential_product": signals_flag,
         "website_summary": website_summary,
         "website_classification": website_classification,
         **seo,
