@@ -11,6 +11,7 @@ P.S: This tools is not fully born yet.
 * [x] Added website classification using zero-shot model
 * [x] Added playwright search (got robot checks immed)
 * [x] Yahoo search integrated works like a charm
+* [ ] Find, Fix, Analyse
 * [ ] Integrate proxies with search
 * [ ] Integrate LLMs to classify and summarise text.
 * [ ] Create fields like target audience etc 

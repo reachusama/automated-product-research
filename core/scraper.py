@@ -72,7 +72,7 @@ def process_url(keyword_category, keyword, url, country_code):
         "search_country": country_code.upper(),
         "email": email,
         **seo,
-        "raw_text": raw_text,
+        # "raw_text": raw_text,
         # "address": address,
         # "phone_number": phone,
         # "target_audience": ", ".join(audience),
