@@ -1,8 +1,11 @@
 import re
 import unicodedata
 import urllib.parse
+from urllib.parse import urlparse
 
 import tldextract
+
+from config.settings import BLOCKED_EXTENSIONS, IRRELEVANT_DOMAINS
 
 
 def extract_registered_domain(yahoo_url):
@@ -143,3 +146,19 @@ def clean_raw_text(text: str) -> str:
     text = text.strip()
 
     return text
+
+
+def is_irrelevant_url(url):
+    domain = urlparse(url).netloc.lower()
+    return any(d in domain for d in IRRELEVANT_DOMAINS)
+
+
+def process_yahoo_urls(urls):
+    urls_processed = deduplicate_base_domains(urls)
+    urls_domain_filter = filter_irrelevant_domains(
+        urls_processed, blocked_domains=IRRELEVANT_DOMAINS
+    )
+    urls_domain_ext_filter = filter_domains_by_extension(
+        urls_domain_filter, blocked_extensions=BLOCKED_EXTENSIONS
+    )
+    return urls_domain_ext_filter

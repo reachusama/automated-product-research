@@ -4,7 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 
 from config.settings import MAX_PAGES, MAX_RESULTS_PER_QUERY
-from core.helpers import extract_registered_domain
+from core.helpers import extract_registered_domain, process_yahoo_urls
 
 
 def yahoo_search(query, country_code="us", max_pages=MAX_PAGES):
@@ -44,5 +44,7 @@ def yahoo_search(query, country_code="us", max_pages=MAX_PAGES):
             print(f"[ERROR] Yahoo page {page + 1}: {e}")
             break
 
-    all_links_processed = [extract_registered_domain(link) for link in all_links]
+    all_links_processed = process_yahoo_urls(
+        extract_registered_domain(link) for link in all_links
+    )
     return list(set(all_links_processed))  # Deduplicate
