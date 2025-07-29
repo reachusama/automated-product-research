@@ -61,7 +61,7 @@ def process_url(keyword_category, keyword, url, country_code):
     # Extract structured data
     # audience = extract_matches(raw_text, "TARGET_AUDIENCE")
     # features = extract_matches(raw_text, "FEATURES")
-    email, phone, address = extract_contact_info(raw_text)
+    # email, phone, address = extract_contact_info(raw_text)
 
     return {
         "keyword_category": keyword_category,
@@ -70,7 +70,7 @@ def process_url(keyword_category, keyword, url, country_code):
         "website_title": website_title,
         "website_url": url,
         "search_country": country_code.upper(),
-        "email": email,
+        # "email": email,
         **seo,
         # "raw_text": raw_text,
         # "address": address,
