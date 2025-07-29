@@ -1,7 +1,6 @@
 import re
 import unicodedata
 import urllib.parse
-from urllib.parse import parse_qs, urlparse
 
 import tldextract
 

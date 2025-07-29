@@ -75,3 +75,43 @@ Custom Search API
 
 
 
+## Potential Columns
+
+```
+ {
+    "keyword_category": keyword_category,
+    "keyword": keyword,
+    "last_updated": datetime.utcnow().isoformat(),
+    "website_title": website_title,
+    "website_url": url,
+    "search_country": country_code.upper(),
+    # "email": email,
+    **seo,
+    # "raw_text": raw_text,
+    # "address": address,
+    # "phone_number": phone,
+    # "target_audience": ", ".join(audience),
+    # "delivery_platform": ", ".join(
+    #     [f for f in features if f in ["web app", "LMS", "plugin", "mobile app"]]
+    # ),
+    # "integrations": ", ".join(
+    #     [f for f in features if f not in ["web app", "LMS", "plugin", "mobile app"]]
+    # ),
+    # "raw_homepage_text": raw_text,
+    # "llm_summary": "",
+    # "business_description_point_1": "",
+    # "business_description_point_2": "",
+    # "business_description_point_3": "",
+    # "business_category_tags": "",
+    # "pricing_info": "",
+    # "product_stage": "",
+    # "funding_info": "",
+    # "partner_names": "",
+    # "scrape_notes": "",
+    # "has_product_signals": signals_flag,
+    # "spacy_product_score_flag": spacy_flag,
+    # "is_potential_product": signals_flag,
+    # "website_summary": website_summary,
+    # "website_classification": website_classification,
+}
+```

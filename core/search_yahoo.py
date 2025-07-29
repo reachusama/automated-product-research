@@ -3,8 +3,9 @@ from time import sleep
 import requests
 from bs4 import BeautifulSoup
 
-from core.helpers import extract_registered_domain
 from config.settings import MAX_PAGES, MAX_RESULTS_PER_QUERY
+from core.helpers import extract_registered_domain
+
 
 def yahoo_search(query, country_code="us", max_pages=MAX_PAGES):
     headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
@@ -23,7 +24,9 @@ def yahoo_search(query, country_code="us", max_pages=MAX_PAGES):
     all_links = []
 
     for page in range(max_pages):
-        start = page * MAX_RESULTS_PER_QUERY + 1  # Yahoo uses 1-based pagination with 'b' param
+        start = (
+            page * MAX_RESULTS_PER_QUERY + 1
+        )  # Yahoo uses 1-based pagination with 'b' param
         params = {"p": query, "b": start}
         try:
             response = requests.get(

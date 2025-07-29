@@ -1,3 +1,7 @@
+"""
+Not Implemented / Used
+"""
+
 from time import sleep
 
 from googleapiclient.discovery import build

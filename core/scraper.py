@@ -1,30 +1,12 @@
 from datetime import datetime
-from urllib.parse import urlparse
 
 import requests
 from bs4 import BeautifulSoup
-from spacy.lang.en import English
 
 from config.settings import HEADERS
-# from core.ai_models import classify_text, summarize_text
-from core.extractor import (
-    extract_contact_info,
-    # extract_matches,
-    extract_seo_meta,
-    get_main_text,
-    # has_product_signals,
-    is_irrelevant_url,
-    # is_likely_product_page_spacy,
-)
-from core.helpers import clean_raw_text
-
-nlp = English()
-tokenizer = nlp.tokenizer
+from core.extractor import extract_seo_meta, is_irrelevant_url
 
 
-# ----------------------------------------
-# 🌍 Fetch & Process
-# ----------------------------------------
 def get_soup(url):
     try:
         r = requests.get(url, headers=HEADERS, timeout=10)
@@ -43,25 +25,7 @@ def process_url(keyword_category, keyword, url, country_code):
         return None
 
     website_title = soup.title.string.strip() if soup.title else ""
-    raw_text = clean_raw_text(get_main_text(soup))
     seo = extract_seo_meta(soup)
-
-    # Flag logic
-    # seo_text = " ".join(str(value) for value in seo.values() if value)
-    # combined_text = f"{seo_text}\n{raw_text[:2000]}"
-
-    # website_summary = summarize_text(combined_text)
-    # website_classification = classify_text(f"{website_title}\n{website_summary}")
-    # signals_flag = has_product_signals(combined_text)
-
-    # spacy_flag = is_likely_product_page_spacy(raw_text)
-
-    # is_potential_product = (signals_flag or spacy_flag)
-
-    # Extract structured data
-    # audience = extract_matches(raw_text, "TARGET_AUDIENCE")
-    # features = extract_matches(raw_text, "FEATURES")
-    # email, phone, address = extract_contact_info(raw_text)
 
     return {
         "keyword_category": keyword_category,
@@ -70,32 +34,5 @@ def process_url(keyword_category, keyword, url, country_code):
         "website_title": website_title,
         "website_url": url,
         "search_country": country_code.upper(),
-        # "email": email,
         **seo,
-        # "raw_text": raw_text,
-        # "address": address,
-        # "phone_number": phone,
-        # "target_audience": ", ".join(audience),
-        # "delivery_platform": ", ".join(
-        #     [f for f in features if f in ["web app", "LMS", "plugin", "mobile app"]]
-        # ),
-        # "integrations": ", ".join(
-        #     [f for f in features if f not in ["web app", "LMS", "plugin", "mobile app"]]
-        # ),
-        # "raw_homepage_text": raw_text,
-        # "llm_summary": "",
-        # "business_description_point_1": "",
-        # "business_description_point_2": "",
-        # "business_description_point_3": "",
-        # "business_category_tags": "",
-        # "pricing_info": "",
-        # "product_stage": "",
-        # "funding_info": "",
-        # "partner_names": "",
-        # "scrape_notes": "",
-        # "has_product_signals": signals_flag,
-        # "spacy_product_score_flag": spacy_flag,
-        # "is_potential_product": signals_flag,
-        # "website_summary": website_summary,
-        # "website_classification": website_classification,
     }
