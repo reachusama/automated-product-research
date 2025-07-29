@@ -48,10 +48,10 @@ def process_url(keyword_category, keyword, url, country_code):
 
     # Flag logic
     seo_text = " ".join(str(value) for value in seo.values() if value)
-    combined_text = f"{seo_text}\n{raw_text[:2000]}"
+    # combined_text = f"{seo_text}\n{raw_text[:2000]}"
 
-    website_summary = summarize_text(combined_text)
-    website_classification = classify_text(f"{website_title}\n{website_summary}")
+    # website_summary = summarize_text(combined_text)
+    # website_classification = classify_text(f"{website_title}\n{website_summary}")
     # signals_flag = has_product_signals(combined_text)
 
     # spacy_flag = is_likely_product_page_spacy(raw_text)
@@ -66,11 +66,13 @@ def process_url(keyword_category, keyword, url, country_code):
     return {
         "keyword_category": keyword_category,
         "keyword": keyword,
+        "last_updated": datetime.utcnow().isoformat(),
         "website_title": website_title,
         "website_url": url,
         "search_country": country_code.upper(),
+        "email": email,
+        **seo,
         # "address": address,
-        # "email": email,
         # "phone_number": phone,
         # "target_audience": ", ".join(audience),
         # "delivery_platform": ", ".join(
@@ -89,12 +91,10 @@ def process_url(keyword_category, keyword, url, country_code):
         # "product_stage": "",
         # "funding_info": "",
         # "partner_names": "",
-        "last_updated": datetime.utcnow().isoformat(),
         # "scrape_notes": "",
         # "has_product_signals": signals_flag,
         # "spacy_product_score_flag": spacy_flag,
         # "is_potential_product": signals_flag,
-        "website_summary": website_summary,
-        "website_classification": website_classification,
-        **seo,
+        # "website_summary": website_summary,
+        # "website_classification": website_classification,
     }
