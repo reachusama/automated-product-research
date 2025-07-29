@@ -1,6 +1,8 @@
+from typing import List, Optional
+
 from transformers import pipeline
+
 from config.settings import WEBSITE_CATEGORY_FILTERS
-from typing import Optional, List
 
 # Initialize globally
 classifier = pipeline("zero-shot-classification", model="facebook/bart-large-mnli")
@@ -8,9 +10,9 @@ summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
 
 
 def classify_text(
-        text: str,
-        candidate_labels: List[str] = WEBSITE_CATEGORY_FILTERS,
-        threshold: float = 0.5
+    text: str,
+    candidate_labels: List[str] = WEBSITE_CATEGORY_FILTERS,
+    threshold: float = 0.5,
 ) -> Optional[str]:
     """
     Classifies input text into one of the provided candidate labels.
@@ -36,7 +38,9 @@ def classify_text(
     return None
 
 
-def summarize_text(text: str, max_length: int = 50, min_length: int = 15) -> Optional[str]:
+def summarize_text(
+    text: str, max_length: int = 50, min_length: int = 15
+) -> Optional[str]:
     """
     Summarizes a long piece of text using facebook/bart-large-cnn.
 
@@ -53,10 +57,7 @@ def summarize_text(text: str, max_length: int = 50, min_length: int = 15) -> Opt
 
     try:
         summary = summarizer(
-            text,
-            max_length=max_length,
-            min_length=min_length,
-            do_sample=False
+            text, max_length=max_length, min_length=min_length, do_sample=False
         )
         return summary[0]["summary_text"]
     except Exception as e:

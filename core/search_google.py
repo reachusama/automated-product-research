@@ -1,10 +1,9 @@
 from time import sleep
 
 from googleapiclient.discovery import build
+from playwright.sync_api import sync_playwright
 
 from config.settings import API_KEY, MAX_RESULTS_PER_QUERY, SEARCH_ENGINE_ID
-from playwright.sync_api import sync_playwright
-from time import sleep
 
 
 def google_search(query, country_code="us", max_pages=3):
@@ -69,7 +68,9 @@ def google_search_playwright(query, country_code="us", max_pages=3):
 
         for i in range(max_pages):
             start = i * 10
-            search_url = f"https://www.google.com/search?q={query}&start={start}&{gl_param}"
+            search_url = (
+                f"https://www.google.com/search?q={query}&start={start}&{gl_param}"
+            )
 
             try:
                 page.goto(search_url, timeout=15000)

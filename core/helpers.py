@@ -1,6 +1,28 @@
-import tldextract
 import re
 import unicodedata
+import urllib.parse
+from urllib.parse import parse_qs, urlparse
+
+import tldextract
+
+
+def extract_registered_domain(yahoo_url):
+    """
+    Extract domain from yahoo url.
+    :param yahoo_url:
+    :return:
+    """
+    ru_index = yahoo_url.find("RU=")
+    if ru_index == -1:
+        return None
+
+    encoded_ru = yahoo_url[ru_index + 3 :]  # after "RU="
+    real_url = urllib.parse.unquote(encoded_ru.split("/RK=")[0])  # stop at RK=
+
+    # Step 2: Use tldextract to get the domain parts
+    extracted = tldextract.extract(real_url)
+    if extracted.domain and extracted.suffix:
+        return f"{extracted.domain}.{extracted.suffix}"
 
 
 def deduplicate_base_domains(urls: list[str]) -> list[str]:
@@ -34,9 +56,9 @@ def deduplicate_base_domains(urls: list[str]) -> list[str]:
 
 
 def filter_domains_by_extension(
-        urls: list[str],
-        allowed_extensions: list[str] = None,
-        blocked_extensions: list[str] = None,
+    urls: list[str],
+    allowed_extensions: list[str] = None,
+    blocked_extensions: list[str] = None,
 ) -> list[str]:
     """
     Filters URLs by their full domain suffix (e.g., 'com', 'org', 'ac.uk') using tldextract.
@@ -73,7 +95,11 @@ def filter_irrelevant_domains(urls: list[str], blocked_domains: list[str]) -> li
     for url in urls:
         try:
             extracted = tldextract.extract(url)
-            full_domain = ".".join(part for part in [extracted.subdomain, extracted.domain, extracted.suffix] if part)
+            full_domain = ".".join(
+                part
+                for part in [extracted.subdomain, extracted.domain, extracted.suffix]
+                if part
+            )
             if not any(blocked in full_domain for blocked in blocked_domains):
                 filtered.append(url)
         except Exception as e:
@@ -101,18 +127,18 @@ def clean_raw_text(text: str) -> str:
     text = unicodedata.normalize("NFKC", text)
 
     # Remove invisible/control characters
-    text = re.sub(r'[\x00-\x1F\x7F-\x9F]', '', text)
+    text = re.sub(r"[\x00-\x1F\x7F-\x9F]", "", text)
 
     # Replace multiple spaces or tabs with a single space
-    text = re.sub(r'[ \t]+', ' ', text)
+    text = re.sub(r"[ \t]+", " ", text)
 
     # Replace multiple newlines or newlines with spaces
-    text = re.sub(r'\n+', '\n', text)  # Collapse multiple newlines
-    text = re.sub(r' *\n *', '\n', text)  # Trim around newlines
-    text = re.sub(r'\n', ' ', text)  # Replace newlines with space
+    text = re.sub(r"\n+", "\n", text)  # Collapse multiple newlines
+    text = re.sub(r" *\n *", "\n", text)  # Trim around newlines
+    text = re.sub(r"\n", " ", text)  # Replace newlines with space
 
     # Collapse multiple spaces again, post newline removal
-    text = re.sub(r' +', ' ', text)
+    text = re.sub(r" +", " ", text)
 
     # Strip leading/trailing whitespace
     text = text.strip()

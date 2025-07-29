@@ -9,6 +9,7 @@ load_dotenv()
 API_KEY = os.getenv("API_KEY")
 SEARCH_ENGINE_ID = os.getenv("SEARCH_ENGINE_ID")
 MAX_RESULTS_PER_QUERY = 10
+MAX_PAGES = 3
 
 # Base paths
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -46,5 +47,3 @@ HEADERS = {
     "Accept-Language": "en-US,en;q=0.9",
     "DNT": "1",
 }
-
-

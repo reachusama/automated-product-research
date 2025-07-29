@@ -26,15 +26,15 @@ def run_pipeline():
                 # urls = google_search(keyword, country)
                 # urls = google_search_playwright(keyword, country)
                 urls = yahoo_search(keyword, country)
-                # urls_processed = deduplicate_base_domains(urls)
-                # urls_domain_filter = filter_irrelevant_domains(
-                #     urls_processed, blocked_domains=IRRELEVANT_DOMAINS
-                # )
-                # urls_domain_ext_filter = filter_domains_by_extension(
-                #     urls_domain_filter, blocked_extensions=BLOCKED_EXTENSIONS
-                # )
-                print(f"Found URLS {urls}")
-                for url in urls:
+                urls_processed = deduplicate_base_domains(urls)
+                urls_domain_filter = filter_irrelevant_domains(
+                    urls_processed, blocked_domains=IRRELEVANT_DOMAINS
+                )
+                urls_domain_ext_filter = filter_domains_by_extension(
+                    urls_domain_filter, blocked_extensions=BLOCKED_EXTENSIONS
+                )
+                print(f"Found URLS {urls_domain_ext_filter}")
+                for url in urls_domain_ext_filter:
                     data = process_url(category, keyword, url, country)
                     if data:
                         write_csv_row(data)

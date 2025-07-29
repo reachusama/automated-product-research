@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 from spacy.lang.en import English
 
 from config.settings import HEADERS
+from core.ai_models import classify_text, summarize_text
 from core.extractor import (
     extract_contact_info,
     extract_matches,
@@ -15,7 +16,6 @@ from core.extractor import (
     is_irrelevant_url,
     is_likely_product_page_spacy,
 )
-from core.ai_models import classify_text, summarize_text
 from core.helpers import clean_raw_text
 
 nlp = English()

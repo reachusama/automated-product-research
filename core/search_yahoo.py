@@ -1,12 +1,13 @@
-import requests
-from bs4 import BeautifulSoup
 from time import sleep
 
+import requests
+from bs4 import BeautifulSoup
 
-def yahoo_search(query, country_code="us", max_pages=3):
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-    }
+from core.helpers import extract_registered_domain
+from config.settings import MAX_PAGES, MAX_RESULTS_PER_QUERY
+
+def yahoo_search(query, country_code="us", max_pages=MAX_PAGES):
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
 
     country_domains = {
         "us": "https://search.yahoo.com/search",
@@ -16,17 +17,18 @@ def yahoo_search(query, country_code="us", max_pages=3):
         "au": "https://au.search.yahoo.com/search",
     }
 
-    base_url = country_domains.get(country_code.lower(), "https://search.yahoo.com/search")
+    base_url = country_domains.get(
+        country_code.lower(), "https://search.yahoo.com/search"
+    )
     all_links = []
 
     for page in range(max_pages):
-        start = page * 10 + 1  # Yahoo uses 1-based pagination with 'b' param
-        params = {
-            "p": query,
-            "b": start
-        }
+        start = page * MAX_RESULTS_PER_QUERY + 1  # Yahoo uses 1-based pagination with 'b' param
+        params = {"p": query, "b": start}
         try:
-            response = requests.get(base_url, params=params, headers=headers, timeout=10)
+            response = requests.get(
+                base_url, params=params, headers=headers, timeout=10
+            )
             soup = BeautifulSoup(response.text, "html.parser")
 
             results = soup.select("div.dd.algo.algo-sr h3.title > a")
@@ -39,4 +41,5 @@ def yahoo_search(query, country_code="us", max_pages=3):
             print(f"[ERROR] Yahoo page {page + 1}: {e}")
             break
 
-    return list(set(all_links))  # Deduplicate
+    all_links_processed = [extract_registered_domain(link) for link in all_links]
+    return list(set(all_links_processed))  # Deduplicate
