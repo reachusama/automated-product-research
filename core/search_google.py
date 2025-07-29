@@ -3,6 +3,8 @@ from time import sleep
 from googleapiclient.discovery import build
 
 from config.settings import API_KEY, MAX_RESULTS_PER_QUERY, SEARCH_ENGINE_ID
+from playwright.sync_api import sync_playwright
+from time import sleep
 
 
 def google_search(query, country_code="us", max_pages=3):
@@ -44,3 +46,50 @@ def google_search(query, country_code="us", max_pages=3):
             break
 
     return urls
+
+
+def google_search_playwright(query, country_code="us", max_pages=3):
+    # Google country localization codes
+    country_params = {
+        "uk": "gl=uk",
+        "us": "gl=us",
+        "ca": "gl=ca",
+        "au": "gl=au",
+        "in": "gl=in",
+    }
+
+    gl_param = country_params.get(country_code.lower(), "gl=us")
+
+    urls = []
+
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=False)
+        context = browser.new_context()
+        page = context.new_page()
+
+        for i in range(max_pages):
+            start = i * 10
+            search_url = f"https://www.google.com/search?q={query}&start={start}&{gl_param}"
+
+            try:
+                page.goto(search_url, timeout=15000)
+                sleep(2)  # Allow content to load
+
+                # Extract result URLs
+                results = page.locator("div.yuRUbf > a")  # Google's organic results
+                count = results.count()
+
+                for i in range(count):
+                    href = results.nth(i).get_attribute("href")
+                    if href:
+                        urls.append(href)
+
+                sleep(1)  # Avoid hitting rate limits
+
+            except Exception as e:
+                print(f"[ERROR] Google page {i + 1}: {e}")
+                break
+
+        browser.close()
+
+    return list(set(urls))  # Deduplicate URLs

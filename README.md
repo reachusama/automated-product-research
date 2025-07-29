@@ -9,6 +9,7 @@ P.S: This tools is not fully born yet.
 
 * [x] Made google search engine URLs filtering more flexible & extensive
 * [x] Added website classification using zero-shot model
+* [x] Added playwright search (got robot checks immed), but added yahoo search and works wonders.
 * [ ] Improve Zero-shot classification labels
 * [ ] Bug in CSV writing that starts writing text
 * [ ] Improve website classification more robust using spaCy / AI
@@ -26,7 +27,8 @@ python -m spacy download en_core_web_sm
 pip install isort black
 pip install tldextract
 pip install transformers torch
-
+pip install playwright
+playwright install
 ```
 
 ## Project Structure
