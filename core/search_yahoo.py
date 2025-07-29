@@ -30,7 +30,7 @@ def yahoo_search(query, country_code="us", max_pages=MAX_PAGES):
         params = {"p": query, "b": start}
         try:
             response = requests.get(
-                base_url, params=params, headers=headers, timeout=10
+                base_url, params=params, headers=headers, timeout=3
             )
             soup = BeautifulSoup(response.text, "html.parser")
 

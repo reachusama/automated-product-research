@@ -29,7 +29,7 @@ WEBSITE_CATEGORY_FILTERS = load_json("website_categories.json")
 
 COUNTRIES = ["uk", "us", "ca", "au", "in"]
 MAX_RESULTS_PER_QUERY = 10
-MAX_PAGES = 3
+MAX_PAGES = 1
 HEADERS = {
     "User-Agent": (
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "

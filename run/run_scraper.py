@@ -28,7 +28,7 @@ def run_pipeline():
 
                     time.sleep(1.5)
                 mark_progress(keyword, country.upper())
-                break
+
 
 
 if __name__ == "__main__":
