@@ -6,15 +6,15 @@ from bs4 import BeautifulSoup
 from spacy.lang.en import English
 
 from config.settings import HEADERS
-from core.ai_models import classify_text, summarize_text
+# from core.ai_models import classify_text, summarize_text
 from core.extractor import (
     extract_contact_info,
-    extract_matches,
+    # extract_matches,
     extract_seo_meta,
     get_main_text,
-    has_product_signals,
+    # has_product_signals,
     is_irrelevant_url,
-    is_likely_product_page_spacy,
+    # is_likely_product_page_spacy,
 )
 from core.helpers import clean_raw_text
 
@@ -47,7 +47,7 @@ def process_url(keyword_category, keyword, url, country_code):
     seo = extract_seo_meta(soup)
 
     # Flag logic
-    seo_text = " ".join(str(value) for value in seo.values() if value)
+    # seo_text = " ".join(str(value) for value in seo.values() if value)
     # combined_text = f"{seo_text}\n{raw_text[:2000]}"
 
     # website_summary = summarize_text(combined_text)
@@ -72,6 +72,7 @@ def process_url(keyword_category, keyword, url, country_code):
         "search_country": country_code.upper(),
         "email": email,
         **seo,
+        "raw_text": raw_text,
         # "address": address,
         # "phone_number": phone,
         # "target_audience": ", ".join(audience),

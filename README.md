@@ -9,7 +9,11 @@ P.S: This tools is not fully born yet.
 
 * [x] Made google search engine URLs filtering more flexible & extensive
 * [x] Added website classification using zero-shot model
-* [x] Added playwright search (got robot checks immed), but added yahoo search and works wonders.
+* [x] Added playwright search (got robot checks immed)
+* [x] Yahoo search integrated works like a charm
+* [ ] Integrate proxies with search
+* [ ] Integrate LLMs to classify and summarise text.
+* [ ] Create fields like target audience etc 
 * [ ] Improve Zero-shot classification labels
 * [ ] Bug in CSV writing that starts writing text
 * [ ] Improve website classification more robust using spaCy / AI
