@@ -30,10 +30,7 @@ def load_json(file_name, type="in"):
 # Load config data
 KEYWORDS = load_json("keywords.json")
 TARGET_AUDIENCE_TERMS = load_json("target_audience_terms.json")
-FEATURE_TERMS = load_json("feature_terms.json")
 IRRELEVANT_DOMAINS = load_json("irrelevant_domains.json")
-IRRELEVANT_PATH_FRAGMENTS = load_json("irrelevant_path_fragments.json")
-PRODUCT_SIGNALS = load_json("product_signals.json")
 BLOCKED_EXTENSIONS = load_json("blocked_extensions.json")
 WEBSITE_CATEGORY_FILTERS = load_json("website_categories.json")
 
